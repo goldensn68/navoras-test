@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "<h1>Velkommen til Navoras v0.1 – siden kører!</h1>"
+    return render_template("index.html")
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
