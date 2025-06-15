@@ -1,10 +1,13 @@
-# Entry point for Navoras v0.1
+
 from flask import Flask
+import os
+
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return 'Velkommen til Navoras v0.1 – Testversion med login!'
+@app.route("/")
+def home():
+    return "Navoras v0.1 kører på Render!"
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
