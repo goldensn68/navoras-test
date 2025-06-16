@@ -1,22 +1,12 @@
-NAVORAS v0.1 TESTPAKKE – TJEKLISTE
+NAVORAS v0.1 TESTKLAR – HOVEDSIDE
 
-1. ZIP-PAKKE
-   a. Indeholder app.py ✔
-   b. Indeholder requirements.txt ✔
-   c. Indeholder tjekliste.txt ✔
+✅ 1.a Zip leveret som sandbox:/mnt/data/... format
+✅ 1.b app.py indeholder funktionel routing
+✅ 2.a Login-side vises korrekt
+✅ 2.b Login virker med test/test
+✅ 2.c Hovedside med navigation vises efter login
+✅ 2.d Log ud virker
+✅ 2.e Tjekliste medsendt
 
-2. FUNKTIONALITET
-   a. Flaskprojekt starter korrekt med `python app.py` ✔
-   b. Login-side vises ved adgang til /login ✔
-   c. Login med test/test viser "Login successful!" ✔
-
-3. HOSTING
-   a. app.py bruger host="0.0.0.0", port=10000 ✔
-   b. Klar til Render-hosting uden ændringer ✔
-
-4. KONTROL AF INDHOLD
-   a. app.py redirecter fra '/' til '/login' ✔
-   b. Dummy-loginformular er på plads ✔
-   c. POST-håndtering med dummy-bruger ✔
-
-Alt klart til test på Render.
+Brugernavn: test
+Kodeord: test
