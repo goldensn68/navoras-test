@@ -1,0 +1,16 @@
+
+VERSION: v0.1 (TESTKLAR)
+
+1. ZIP-fil korrekt navngivet og uploadet ✅
+2. Indhold:
+   a. Korrekt filstruktur ✅
+   b. app.py inkluderet og opdateret ✅
+   c. Templates inkluderet ✅
+3. Funktionalitet:
+   a. Forside vises ✅
+   b. Login-side vises ✅
+   c. Login redirecter korrekt ✅
+   d. Dashboard vises ✅
+4. Teststatus: KAN TESTES SOM V0.1 (FULD VERSION) ✅
+
+Uploadet til bruger via korrekt metode. Klar til test.

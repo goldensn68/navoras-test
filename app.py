@@ -9,11 +9,7 @@ def home():
 
 @app.route("/login")
 def login():
-    return render_template('login.html')
-
-@app.route("/dashboard")
-def dashboard():
-    return render_template('dashboard.html')
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=10000)
