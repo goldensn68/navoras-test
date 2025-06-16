@@ -1,0 +1,20 @@
+
+VERSION: v0.1 – Testversion
+
+[1. Generelt]
+✅ 1.a. Version er markeret tydeligt på siden (v0.1)
+✅ 1.b. Applikationen viser velkomstbesked
+
+[2. Teknisk]
+✅ 2.a. Zip-pakken indeholder alle nødvendige filer
+✅ 2.b. App starter uden fejl på Render (host='0.0.0.0', port=10000)
+✅ 2.c. Tjekliste-fil er vedlagt i pakken
+
+[3. Funktioner]
+⏳ 3.a. Login-side vises
+⏳ 3.b. Bruger kan logge ind
+⏳ 3.c. Dashboard vises efter login
+
+[4. Design]
+✅ 4.a. Simpel velkomstside vises
+⏳ 4.b. Mobilvisning ikke testet endnu
