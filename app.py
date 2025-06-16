@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
@@ -10,9 +11,9 @@ def home():
 def login():
     return render_template('login.html')
 
-if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=10000)
-
 @app.route("/dashboard")
 def dashboard():
     return render_template('dashboard.html')
+
+if __name__ == "__main__":
+    app.run(debug=False, host="0.0.0.0", port=10000)
