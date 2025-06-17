@@ -9,7 +9,7 @@ def home():
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return "<h1>Login-side (dummy)</h1>"
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=10000)

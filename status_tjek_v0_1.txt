@@ -1,16 +1,16 @@
 
-VERSION: v0.1 (TESTKLAR)
+NAVORAS v0.1 – TESTKLAR VERSION
+-------------------------------
 
-1. ZIP-fil korrekt navngivet og uploadet ✅
-2. Indhold:
-   a. Korrekt filstruktur ✅
-   b. app.py inkluderet og opdateret ✅
-   c. Templates inkluderet ✅
-3. Funktionalitet:
-   a. Forside vises ✅
-   b. Login-side vises ✅
-   c. Login redirecter korrekt ✅
-   d. Dashboard vises ✅
-4. Teststatus: KAN TESTES SOM V0.1 (FULD VERSION) ✅
+✅ Inkluderer:
+- Forside med login-knap
+- Login for testbruger
+- Testpanel med mulighed for at oprette båd og vedligehold (dummy)
+- Opdateret app.py testet for korrekt routing
+- Korrekt zip-navngivning og downloadlink
+- Denne tjekliste som fil
 
-Uploadet til bruger via korrekt metode. Klar til test.
+📁 Fil: status_tjek_v0_1.txt
+
+OBS: Dette er en FULD testversion i henhold til vores specifikation.
+
