@@ -1,0 +1,8 @@
+TJEKLISTE – NAVORAS v0.1_patch2
+-------------------------------
+1. Login virker med dummybruger (✅/❌)
+2. Dashboard vises korrekt efter login (✅/❌)
+3. Logud-knap fungerer (✅/❌)
+4. Redirect til login virker hvis man ikke er logget ind (✅/❌)
+5. Klar til upload til GitHub og Render (✅/❌)
+5a. Flask starter korrekt på Render (host='0.0.0.0', port=os.environ) (✅/❌)
