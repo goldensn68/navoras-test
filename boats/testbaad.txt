@@ -1,0 +1,6 @@
+Navn: TestBåd
+Længde: 9,5 m
+Bredde: 3,2 m
+Motor: Yanmar 30 hk
+Hjemhavn: Sønderborg
+Forsikring: Tryg

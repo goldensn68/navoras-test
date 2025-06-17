@@ -1,0 +1,4 @@
+Navn: Bruger 1
+E-mail: bruger1@navoras.dk
+Adgangskode: Test1234!
+Abonnement: Standard (gratis prøveperiode aktiv)

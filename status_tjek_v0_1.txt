@@ -1,16 +1,16 @@
+TJEKLISTE – NAVORAS v0.1
+Version genereret: 2025-06-17 10:57
 
-NAVORAS v0.1 – TESTKLAR VERSION
--------------------------------
+1. Login fungerer korrekt (✅/❌)
+2. Brugeroprettelse virker (✅/❌)
+3. Båd kan registreres og vises (✅/❌)
+4. Vedligeholdelsesopgave kan oprettes og vises (✅/❌)
+5. Logbog kan oprettes og vises (✅/❌)
+6. Abonnementstype vises korrekt (✅/❌)
+7. Admin-login og oversigt fungerer (✅/❌)
+8. Design er responsivt og brugervenligt (✅/❌)
+9. Testbruger Bruger 1 vises og virker (✅/❌)
+10. Dansk tidszone vises korrekt (✅/❌)
 
-✅ Inkluderer:
-- Forside med login-knap
-- Login for testbruger
-- Testpanel med mulighed for at oprette båd og vedligehold (dummy)
-- Opdateret app.py testet for korrekt routing
-- Korrekt zip-navngivning og downloadlink
-- Denne tjekliste som fil
-
-📁 Fil: status_tjek_v0_1.txt
-
-OBS: Dette er en FULD testversion i henhold til vores specifikation.
-
+Kommentarer:
+- 
