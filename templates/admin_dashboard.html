@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head><title>Admin Dashboard</title></head>
-<body>
-  <h1>Adminpanel</h1>
-  <p>Du er logget ind som <b>administrator</b>: {{ user }}</p>
-  <h2>Brugere i systemet</h2>
-  <ul>
-    <li>bruger1@navoras.dk (rolle: bruger)</li>
-    <li>admin@navoras.dk (rolle: admin)</li>
-  </ul>
-  <p>Systemstatus: OK</p>
-  <a href="{{ url_for('logout') }}">Log ud</a>
-</body>
-</html>
+<h1>Admin Dashboard</h1>
+<a href="{{ url_for('logout') }}">Log ud</a><br><br>
+<h3>Opret ny bruger</h3>
+<form method="post" action="{{ url_for('register_user') }}">
+  Email: <input name="email"><br>
+  Password: <input name="password"><br>
+  Rolle: <select name="role"><option value="user">user</option><option value="admin">admin</option></select><br>
+  <button type="submit">Opret</button>
+</form>
+<h3>Eksisterende brugere:</h3>
+<ul>
+  {% for u in users %}
+    <li>{{ u.email }} ({{ u.role }})</li>
+  {% endfor %}
+</ul>

@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head><title>Bruger Dashboard</title></head>
-<body>
-  <h1>Velkommen {{ user }}</h1>
-  <p>Du er logget ind som bruger.</p>
-  <h2>Din båd</h2>
-  <p>Navn: TestBåd<br>Længde: 9,5 m<br>Motor: Yanmar 30 hk</p>
-  <h2>Seneste logbog</h2>
-  <p>Weekendtur til Årø – solskin og 3-4 m/s</p>
-  <h2>Vedligeholdelse</h2>
-  <p>Olie- og filterskift – udført 15/06/2025</p>
-  <a href="{{ url_for('logout') }}">Log ud</a>
-</body>
-</html>
+<h1>Velkommen, {{ session['user'] }}</h1>
+<a href="{{ url_for('logout') }}">Log ud</a><br><br>
+<h3>Bådoplysninger</h3>
+{% if boat %}
+  <p>Navn: {{ boat.name }} – Længde: {{ boat.length }} – Motor: {{ boat.motor }}</p>
+{% else %}
+  <form method="post" action="{{ url_for('add_boat') }}">
+    Navn: <input name="name"><br>
+    Længde: <input name="length"><br>
+    Motor: <input name="motor"><br>
+    <button type="submit">Tilføj båd</button>
+  </form>
+{% endif %}
+<h3>Logbog</h3>
+<ul>{% for log in logs %}<li>{{ log.entry }}</li>{% endfor %}</ul>
+<form method="post" action="{{ url_for('add_logbook') }}">
+  <textarea name="entry"></textarea><br>
+  <button type="submit">Tilføj log</button>
+</form>
+<h3>Vedligeholdelse</h3>
+<ul>{% for task in tasks %}<li>{{ task.task }} – {{ task.status }}</li>{% endfor %}</ul>
+<form method="post" action="{{ url_for('add_maintenance') }}">
+  Opgave: <input name="task"><br>
+  Status: <input name="status"><br>
+  <button type="submit">Tilføj opgave</button>
+</form>
