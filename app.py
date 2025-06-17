@@ -4,15 +4,17 @@ import os
 app = Flask(__name__)
 app.secret_key = 'hemmelig-nøgle'
 
-dummy_user = {
-    "email": "bruger1@navoras.dk",
-    "password": "Test1234!"
+users = {
+    "bruger1@navoras.dk": {"password": "Test1234!", "role": "user"},
+    "admin@navoras.dk": {"password": "Admin1234!", "role": "admin"}
 }
 
 @app.route('/')
 def index():
     if 'user' in session:
-        return render_template('dashboard.html', user=session['user'])
+        if session['role'] == 'admin':
+            return render_template('admin_dashboard.html', user=session['user'])
+        return render_template('user_dashboard.html', user=session['user'])
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -20,15 +22,17 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        if email == dummy_user['email'] and password == dummy_user['password']:
+        user = users.get(email)
+        if user and user['password'] == password:
             session['user'] = email
+            session['role'] = user['role']
             return redirect(url_for('index'))
         return render_template('login.html', error="Forkert login")
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    session.clear()
     return redirect(url_for('login'))
 
 if __name__ == '__main__':

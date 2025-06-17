@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Bruger Dashboard</title></head>
+<body>
+  <h1>Velkommen {{ user }}</h1>
+  <p>Du er logget ind som bruger.</p>
+  <h2>Din båd</h2>
+  <p>Navn: TestBåd<br>Længde: 9,5 m<br>Motor: Yanmar 30 hk</p>
+  <h2>Seneste logbog</h2>
+  <p>Weekendtur til Årø – solskin og 3-4 m/s</p>
+  <h2>Vedligeholdelse</h2>
+  <p>Olie- og filterskift – udført 15/06/2025</p>
+  <a href="{{ url_for('logout') }}">Log ud</a>
+</body>
+</html>

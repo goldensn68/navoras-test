@@ -1,16 +1,10 @@
-TJEKLISTE – NAVORAS v0.1
-Version genereret: 2025-06-17 10:57
-
-1. Login fungerer korrekt (✅/❌)
-2. Brugeroprettelse virker (✅/❌)
-3. Båd kan registreres og vises (✅/❌)
-4. Vedligeholdelsesopgave kan oprettes og vises (✅/❌)
-5. Logbog kan oprettes og vises (✅/❌)
-6. Abonnementstype vises korrekt (✅/❌)
-7. Admin-login og oversigt fungerer (✅/❌)
-8. Design er responsivt og brugervenligt (✅/❌)
-9. Testbruger Bruger 1 vises og virker (✅/❌)
-10. Dansk tidszone vises korrekt (✅/❌)
-
-Kommentarer:
-- 
+TJEKLISTE – NAVORAS v0.1 (komplet testpakke)
+-------------------------------------------
+1. Login virker for bruger1@navoras.dk / Test1234! (✅/❌)
+2. Login virker for admin@navoras.dk / Admin1234! (✅/❌)
+3. Bruger-dashboard viser båd, logbog og vedligehold korrekt (✅/❌)
+4. Admin-dashboard viser brugeroversigt og systemstatus (✅/❌)
+5. Logud-knap fungerer for begge brugertyper (✅/❌)
+6. Redirect til login hvis ikke logget ind (✅/❌)
+7. Flask starter korrekt på Render (host='0.0.0.0', port=os.environ) (✅/❌)
+8. Klar til GitHub + deploy (✅/❌)

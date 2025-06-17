@@ -1,0 +1,3 @@
+Navn: TestBåd
+Længde: 9,5 m
+Motor: Yanmar 30 hk

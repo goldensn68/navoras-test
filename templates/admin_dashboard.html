@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+  <h1>Adminpanel</h1>
+  <p>Du er logget ind som <b>administrator</b>: {{ user }}</p>
+  <h2>Brugere i systemet</h2>
+  <ul>
+    <li>bruger1@navoras.dk (rolle: bruger)</li>
+    <li>admin@navoras.dk (rolle: admin)</li>
+  </ul>
+  <p>Systemstatus: OK</p>
+  <a href="{{ url_for('logout') }}">Log ud</a>
+</body>
+</html>
