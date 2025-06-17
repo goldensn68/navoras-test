@@ -1,0 +1,7 @@
+TJEKLISTE – NAVORAS v0.1_patch1
+-------------------------------
+1. Login virker med dummybruger (✅/❌)
+2. Dashboard vises korrekt efter login (✅/❌)
+3. Logud-knap fungerer (✅/❌)
+4. Redirect til login virker hvis man ikke er logget ind (✅/❌)
+5. Klar til upload til GitHub og Render (✅/❌)

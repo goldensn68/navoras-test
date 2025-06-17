@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head><title>Dashboard</title></head>
 <body>
-<h1>Velkommen til dashboardet</h1>
-<p>Her kan du oprette både, vedligehold m.v.</p>
+  <h1>Velkommen {{ user }}</h1>
+  <p>Her kommer dit Navoras-overblik.</p>
+  <a href="{{ url_for('logout') }}">Log ud</a>
 </body>
 </html>

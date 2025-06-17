@@ -1,15 +1,34 @@
-
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, request, session, url_for
 
 app = Flask(__name__)
+app.secret_key = 'hemmelig-nøgle'
 
-@app.route("/")
-def home():
+dummy_user = {
+    "email": "bruger1@navoras.dk",
+    "password": "Test1234!"
+}
+
+@app.route('/')
+def index():
+    if 'user' in session:
+        return render_template('dashboard.html', user=session['user'])
     return redirect(url_for('login'))
 
-@app.route("/login")
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return "<h1>Login-side (dummy)</h1>"
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if email == dummy_user['email'] and password == dummy_user['password']:
+            session['user'] = email
+            return redirect(url_for('index'))
+        return render_template('login.html', error="Forkert login")
+    return render_template('login.html')
 
-if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=10000)
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
