@@ -1,26 +1,24 @@
 <h1>Velkommen, {{ session['user'] }}</h1>
 <a href="{{ url_for('logout') }}">Log ud</a><br><br>
+
 <h3>Bådoplysninger</h3>
 {% if boat %}
   <p>Navn: {{ boat.name }} – Længde: {{ boat.length }} – Motor: {{ boat.motor }}</p>
 {% else %}
-  <form method="post" action="{{ url_for('add_boat') }}">
-    Navn: <input name="name"><br>
-    Længde: <input name="length"><br>
-    Motor: <input name="motor"><br>
-    <button type="submit">Tilføj båd</button>
-  </form>
+  <p>Ingen båd registreret.</p>
 {% endif %}
+
 <h3>Logbog</h3>
-<ul>{% for log in logs %}<li>{{ log.entry }}</li>{% endfor %}</ul>
-<form method="post" action="{{ url_for('add_logbook') }}">
-  <textarea name="entry"></textarea><br>
-  <button type="submit">Tilføj log</button>
-</form>
+<ul>
+  {% for log in logs %}
+    <li>{{ log.entry }}</li>
+  {% endfor %}
+</ul>
+
 <h3>Vedligeholdelse</h3>
-<ul>{% for task in tasks %}<li>{{ task.task }} – {{ task.status }}</li>{% endfor %}</ul>
-<form method="post" action="{{ url_for('add_maintenance') }}">
-  Opgave: <input name="task"><br>
-  Status: <input name="status"><br>
-  <button type="submit">Tilføj opgave</button>
-</form>
+<ul>
+  {% for task in tasks %}
+    <li>{{ task.task }} – {{ task.status }}</li>
+  {% endfor %}
+</ul>
+

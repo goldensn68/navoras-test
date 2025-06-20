@@ -1,15 +1,21 @@
 <h1>Admin Dashboard</h1>
 <a href="{{ url_for('logout') }}">Log ud</a><br><br>
+
 <h3>Opret ny bruger</h3>
 <form method="post" action="{{ url_for('register_user') }}">
-  Email: <input name="email"><br>
-  Password: <input name="password"><br>
-  Rolle: <select name="role"><option value="user">user</option><option value="admin">admin</option></select><br>
+  Brugernavn: <input name="username"><br>
+  Adgangskode: <input name="password"><br>
+  Rolle: 
+  <select name="role">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select><br>
   <button type="submit">Opret</button>
 </form>
+
 <h3>Eksisterende brugere:</h3>
 <ul>
-  {% for u in users %}
-    <li>{{ u.email }} ({{ u.role }})</li>
+  {% for username, info in users.items() %}
+    <li>{{ username }} ({{ info.role }})</li>
   {% endfor %}
 </ul>

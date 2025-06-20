@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import timedelta
-import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -8,8 +7,21 @@ app.permanent_session_lifetime = timedelta(days=7)
 
 # Dummy-brugere til test
 users = {
-    'bruger1': 'test123',
-    'bruger2': 'test123'
+    'admin': {'password': 'admin123', 'role': 'admin'},
+    'bruger2': {'password': 'test123', 'role': 'user'}
+}
+
+# Dummydata til bruger-dashboard
+dummy_boats = {
+    'bruger2': {'name': 'Testbåd', 'length': '30 fod', 'motor': 'Volvo Penta'}
+}
+
+dummy_logs = {
+    'bruger2': [{'entry': 'Tog ud og fiskede i 3 timer.'}]
+}
+
+dummy_tasks = {
+    'bruger2': [{'task': 'Olieskift', 'status': 'Udført'}]
 }
 
 @app.route('/')
@@ -23,9 +35,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username in users and users[username] == password:
+        user = users.get(username)
+        if user and user['password'] == password:
             session.permanent = True
             session['user'] = username
+            session['role'] = user['role']
             return redirect(url_for('dashboard'))
         else:
             return render_template('login.html', error="Forkert brugernavn eller adgangskode.")
@@ -33,16 +47,38 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'user' in session:
-        return render_template('dashboard.html', user=session['user'])
-    return redirect(url_for('login'))
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    username = session['user']
+    role = session.get('role')
+
+    if role == 'admin':
+        return render_template('admin_dashboard.html', users=users)
+    else:
+        boat = dummy_boats.get(username)
+        logs = dummy_logs.get(username, [])
+        tasks = dummy_tasks.get(username, [])
+        return render_template('user_dashboard.html', boat=boat, logs=logs, tasks=tasks)
+
+@app.route('/register_user', methods=['POST'])
+def register_user():
+    if 'user' not in session or session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    
+    username = request.form['username']
+    password = request.form['password']
+    role = request.form['role']
+
+    if username not in users:
+        users[username] = {'password': password, 'role': role}
+    return redirect(url_for('dashboard'))
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    session.clear()
     return redirect(url_for('login'))
 
+# Dette er vigtigt for Render!
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Render kræver port fra miljøvariabel
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=10000)
 
