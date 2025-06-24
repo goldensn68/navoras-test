@@ -5,14 +5,18 @@ import os
 app = Flask(__name__)
 app.secret_key = "hemmelig_nøgle"
 
-# Indlæs brugere fra users.json i roden
+# Brug korrekt sti til users.json i roden
 def load_users():
     with open("users.json", "r", encoding="utf-8") as f:
         return json.load(f)["users"]
 
+def save_users(users):
+    with open("users.json", "w", encoding="utf-8") as f:
+        json.dump({"users": users}, f, indent=2, ensure_ascii=False)
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -34,27 +38,45 @@ def login():
 @app.route("/dashboard")
 def user_dashboard():
     if "username" in session and session.get("role") == "bruger":
-        return render_template("user_dashboard.html", username=session["username"], boat=None, logs=[], tasks=[])
+        return render_template("user_dashboard.html", username=session["username"])
     return redirect(url_for("login"))
 
-@app.route("/admin")
+@app.route("/admin", methods=["GET", "POST"])
 def admin_dashboard():
     if "username" in session and session.get("role") == "admin":
-        # Indlæs brugere og konverter til dict med brugernavn som key
-        brugere = load_users()
-        users_dict = {bruger["username"]: bruger for bruger in brugere}
-        return render_template("admin_dashboard.html", username=session["username"], users=users_dict)
+        users = load_users()
+        user_dict = {u["username"]: u for u in users}
+        return render_template("admin_dashboard.html", username=session["username"], users=user_dict)
     return redirect(url_for("login"))
 
-@app.route("/logout")
-def logout():
-    session.clear()
+@app.route("/register_user", methods=["POST"])
+def register_user():
+    if "username" in session and session.get("role") == "admin":
+        new_user = {
+            "username": request.form["username"],
+            "password": request.form["password"],
+            "role": request.form["role"]
+        }
+        users = load_users()
+        users.append(new_user)
+        save_users(users)
+        return redirect(url_for("admin_dashboard"))
     return redirect(url_for("login"))
 
 @app.route("/profile")
 def profile():
     if "username" in session:
-        return render_template("profile.html", username=session["username"])
+        username = session["username"]
+        role = session.get("role", "bruger")
+        # Midlertidige testdata – disse kan senere gøres dynamiske
+        points = 42
+        badges = ["Motorpasser", "Logbogsfører", "Feedbackgiver"]
+        return render_template("profile.html", username=username, role=role, points=points, badges=badges)
+    return redirect(url_for("login"))
+
+@app.route("/logout")
+def logout():
+    session.clear()
     return redirect(url_for("login"))
 
 # Portopsætning til Render
