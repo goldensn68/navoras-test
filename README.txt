@@ -1,1 +1,2 @@
-Dette er testversion 0.1 af Navoras med login, dummydata og dashboard.
+Denne ZIP indeholder testversion v0.7+ af Navoras
+Test på Render som sædvanlig.
