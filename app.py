@@ -34,14 +34,40 @@ def login():
 @app.route("/dashboard")
 def user_dashboard():
     if "username" in session and session.get("role") == "bruger":
-        return render_template("user_dashboard.html", username=session["username"])
+        # Dummydata til båd, log og vedligeholdelse
+        boat = {"name": "Havmåge", "length": "8,5 m", "motor": "Yanmar 2GM20"}
+        logs = [{"entry": "Sejlede til Anholt"}, {"entry": "Lille tur i fjorden"}]
+        tasks = [{"task": "Olieskift", "status": "Afsluttet"}, {"task": "Filtertjek", "status": "Afventer"}]
+
+        return render_template("user_dashboard.html",
+                               username=session["username"],
+                               boat=boat,
+                               logs=logs,
+                               tasks=tasks)
     return redirect(url_for("login"))
 
 @app.route("/admin")
 def admin_dashboard():
     if "username" in session and session.get("role") == "admin":
-        return render_template("admin_dashboard.html", username=session["username"])
+        users = {user["username"]: user for user in load_users()}
+        return render_template("admin_dashboard.html", username=session["username"], users=users)
     return redirect(url_for("login"))
+
+@app.route("/profile")
+def profile():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    # Dummydata til visning
+    badges = ["Motorpasser", "Logbogssejler"]
+    points = 75
+    strike_days = 12
+
+    return render_template("profile.html",
+                           username=session["username"],
+                           badges=badges,
+                           points=points,
+                           strike_days=strike_days)
 
 @app.route("/logout")
 def logout():
@@ -52,4 +78,3 @@ def logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-

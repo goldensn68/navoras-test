@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-    <meta charset="UTF-8">
-    <title>Login - Navoras</title>
+  <meta charset="UTF-8">
+  <title>Log ind – Navoras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-    <h1>Login til Navoras</h1>
+<body style="font-family: Arial, sans-serif; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+  <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+    <h2 style="text-align: center;">🔐 Log ind på Navoras</h2>
 
     {% if fejl %}
-        <p style="color: red;">{{ fejl }}</p>
+      <p style="color: red; text-align: center;">{{ fejl }}</p>
     {% endif %}
 
-    <form method="POST">
-        <label for="username">Brugernavn:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
+    <form method="post">
+      <label for="username">Brugernavn:</label><br>
+      <input type="text" id="username" name="username" style="width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px;"><br>
 
-        <label for="password">Adgangskode:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+      <label for="password">Adgangskode:</label><br>
+      <input type="password" id="password" name="password" style="width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 20px;"><br>
 
-        <input type="submit" value="Log ind">
+      <button type="submit" style="width: 100%; background-color: #004080; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Log ind</button>
     </form>
+  </div>
+
 </body>
 </html>

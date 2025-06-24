@@ -1,1 +1,26 @@
-<!-- Brugerprofil med badges og points -->
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Din profil – Navoras</title>
+</head>
+<body>
+  <h1>Profil for {{ username }}</h1>
+  <p><a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a></p>
+
+  <h3>Badges</h3>
+  <ul>
+    {% for badge in badges %}
+      <li>{{ badge }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Pointstatus</h3>
+  <p>Du har <strong>{{ points }}</strong> point.</p>
+
+  <h3>Strike</h3>
+  <p>Du har haft aktivitet i <strong>{{ strike_days }}</strong> dage i træk.</p>
+
+  <p><a href="{{ url_for('logout') }}">Log ud</a></p>
+</body>
+</html>
