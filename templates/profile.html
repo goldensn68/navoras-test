@@ -3,24 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>Din profil – Navoras</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 5px;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Profil for {{ username }}</h1>
-  <p><a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a></p>
+  <div class="container">
+    <h1>Din profil</h1>
+    <p><strong>Brugernavn:</strong> {{ username }}</p>
+    <p><strong>Rolle:</strong> {{ role }}</p>
+    <p><strong>Point:</strong> {{ points }}</p>
 
-  <h3>Badges</h3>
-  <ul>
-    {% for badge in badges %}
-      <li>{{ badge }}</li>
-    {% endfor %}
-  </ul>
+    <h2>Dine badges</h2>
+    {% if badges %}
+      {% for badge in badges %}
+        <span class="badge">{{ badge }}</span>
+      {% endfor %}
+    {% else %}
+      <p>Du har endnu ingen badges.</p>
+    {% endif %}
 
-  <h3>Pointstatus</h3>
-  <p>Du har <strong>{{ points }}</strong> point.</p>
-
-  <h3>Strike</h3>
-  <p>Du har haft aktivitet i <strong>{{ strike_days }}</strong> dage i træk.</p>
-
-  <p><a href="{{ url_for('logout') }}">Log ud</a></p>
+    <br><br>
+    <a href="{{ url_for('user_dashboard') }}">← Tilbage til dashboard</a>
+  </div>
 </body>
 </html>

@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 app.secret_key = "hemmelig_nøgle"
 
-# Brug korrekt sti til users.json i roden
+# Indlæs brugere fra users.json i roden
 def load_users():
     with open("users.json", "r", encoding="utf-8") as f:
         return json.load(f)["users"]
@@ -34,44 +34,27 @@ def login():
 @app.route("/dashboard")
 def user_dashboard():
     if "username" in session and session.get("role") == "bruger":
-        # Dummydata til båd, log og vedligeholdelse
-        boat = {"name": "Havmåge", "length": "8,5 m", "motor": "Yanmar 2GM20"}
-        logs = [{"entry": "Sejlede til Anholt"}, {"entry": "Lille tur i fjorden"}]
-        tasks = [{"task": "Olieskift", "status": "Afsluttet"}, {"task": "Filtertjek", "status": "Afventer"}]
-
-        return render_template("user_dashboard.html",
-                               username=session["username"],
-                               boat=boat,
-                               logs=logs,
-                               tasks=tasks)
+        return render_template("user_dashboard.html", username=session["username"], boat=None, logs=[], tasks=[])
     return redirect(url_for("login"))
 
 @app.route("/admin")
 def admin_dashboard():
     if "username" in session and session.get("role") == "admin":
-        users = {user["username"]: user for user in load_users()}
-        return render_template("admin_dashboard.html", username=session["username"], users=users)
+        # Indlæs brugere og konverter til dict med brugernavn som key
+        brugere = load_users()
+        users_dict = {bruger["username"]: bruger for bruger in brugere}
+        return render_template("admin_dashboard.html", username=session["username"], users=users_dict)
     return redirect(url_for("login"))
-
-@app.route("/profile")
-def profile():
-    if "username" not in session:
-        return redirect(url_for("login"))
-
-    # Dummydata til visning
-    badges = ["Motorpasser", "Logbogssejler"]
-    points = 75
-    strike_days = 12
-
-    return render_template("profile.html",
-                           username=session["username"],
-                           badges=badges,
-                           points=points,
-                           strike_days=strike_days)
 
 @app.route("/logout")
 def logout():
     session.clear()
+    return redirect(url_for("login"))
+
+@app.route("/profile")
+def profile():
+    if "username" in session:
+        return render_template("profile.html", username=session["username"])
     return redirect(url_for("login"))
 
 # Portopsætning til Render
