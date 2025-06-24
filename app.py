@@ -1,65 +1,55 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import os
 import json
+import os
 
 app = Flask(__name__)
-app.secret_key = 'hemmelig_nøgle'
+app.secret_key = "hemmelig_nøgle"
 
-DATA_PATH = 'data/users.json'
-
-# Hent brugerdata
+# Brug korrekt sti til users.json i roden
 def load_users():
-    if not os.path.exists(DATA_PATH):
-        return {}
-    with open(DATA_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    with open("users.json", "r", encoding="utf-8") as f:
+        return json.load(f)["users"]
 
-# Gem brugerdata
-def save_users(users):
-    with open(DATA_PATH, 'w', encoding='utf-8') as f:
-        json.dump(users, f, indent=2, ensure_ascii=False)
-
-@app.route('/')
+@app.route("/")
 def index():
-    return redirect(url_for('login'))
+    return render_template("index.html")
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    error = None
-    if request.method == 'POST':
-        email = request.form['email']
-        kodeord = request.form['kodeord']
-        users = load_users()
+    if request.method == "POST":
+        brugernavn = request.form["username"]
+        kodeord = request.form["password"]
+        brugere = load_users()
+        for bruger in brugere:
+            if bruger["username"] == brugernavn and bruger["password"] == kodeord:
+                session["username"] = brugernavn
+                session["role"] = bruger.get("role", "bruger")
+                if session["role"] == "admin":
+                    return redirect(url_for("admin_dashboard"))
+                else:
+                    return redirect(url_for("user_dashboard"))
+        return render_template("login.html", fejl="Forkert brugernavn eller adgangskode.")
+    return render_template("login.html")
 
-        for brugernavn, brugerdata in users.items():
-            if brugerdata['email'] == email and brugerdata['kodeord'] == kodeord:
-                session['brugernavn'] = brugernavn
-                session['rolle'] = brugerdata.get('rolle', 'bruger')
-                return redirect(url_for('dashboard'))
+@app.route("/dashboard")
+def user_dashboard():
+    if "username" in session and session.get("role") == "bruger":
+        return render_template("user_dashboard.html", username=session["username"])
+    return redirect(url_for("login"))
 
-        error = 'Ugyldig e-mail eller adgangskode'
+@app.route("/admin")
+def admin_dashboard():
+    if "username" in session and session.get("role") == "admin":
+        return render_template("admin_dashboard.html", username=session["username"])
+    return redirect(url_for("login"))
 
-    return render_template('login.html', error=error)
-
-@app.route('/dashboard')
-def dashboard():
-    if 'brugernavn' not in session:
-        return redirect(url_for('login'))
-    
-    brugernavn = session['brugernavn']
-    rolle = session.get('rolle', 'bruger')
-
-    if rolle == 'admin':
-        return render_template('admin_dashboard.html', brugernavn=brugernavn)
-    else:
-        return render_template('dashboard.html', brugernavn=brugernavn)
-
-@app.route('/logout')
+@app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for("login"))
 
-# Sørg for at binde korrekt til port, som Render stiller til rådighed
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+# Portopsætning til Render
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
