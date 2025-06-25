@@ -1,10 +1,12 @@
-{
-  "Admin": {
-    "adgangskode": "admin123",
-    "rolle": "admin"
-  },
-  "Bruger1": {
-    "adgangskode": "test123",
-    "rolle": "bruger"
-  }
-}
+[
+    {
+        "username": "Bruger1",
+        "password": "test123",
+        "role": "user"
+    },
+    {
+        "username": "Admin",
+        "password": "admin123",
+        "role": "admin"
+    }
+]

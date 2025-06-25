@@ -1,66 +1,63 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+
+from flask import Flask, render_template, request, redirect, url_for
 import json
-import os
 
 app = Flask(__name__)
-app.secret_key = 'navoras_secret'
-
-USER_FILE = 'users.json'
-LOG_FILE = 'log.json'
 
 def load_users():
-    with open(USER_FILE, 'r') as f:
+    with open('users.json') as f:
         return json.load(f)
 
-def load_logs():
-    if not os.path.exists(LOG_FILE):
-        return []
-    with open(LOG_FILE, 'r') as f:
+def load_logbook():
+    with open('logbook.json') as f:
         return json.load(f)
 
-def save_logs(logs):
-    with open(LOG_FILE, 'w') as f:
-        json.dump(logs, f, indent=2)
+def save_logbook(data):
+    with open('logbook.json', 'w') as f:
+        json.dump(data, f, indent=4)
 
 @app.route('/')
-def index():
-    return redirect('/login')
+def home():
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = ''
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         users = load_users()
-        if username in users and users[username]['password'] == password:
-            session['user'] = username
-            return redirect('/user/dashboard')
-        else:
-            return 'Forkert login'
-    return render_template('login.html')
+        for user in users:
+            if user['username'] == username and user['password'] == password:
+                if user['role'] == 'admin':
+                    return redirect(url_for('admin_dashboard'))
+                else:
+                    return redirect(url_for('user_dashboard', username=username))
+        error = 'Forkert brugernavn eller adgangskode.'
+    return render_template('login.html', error=error)
 
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    return redirect('/login')
+@app.route('/dashboard/<username>')
+def user_dashboard(username):
+    logbook = load_logbook()
+    user_entries = [entry for entry in logbook if entry['username'] == username]
+    return render_template('user_dashboard.html', username=username, logbook=user_entries)
 
-@app.route('/user/dashboard')
-def user_dashboard():
-    if 'user' not in session:
-        return redirect('/login')
-    logs = load_logs()
-    user_logs = [log for log in logs if log['user'] == session['user']]
-    return render_template('user_dashboard.html', logs=user_logs)
-
-@app.route('/edit_log/<int:log_id>', methods=['GET', 'POST'])
-def edit_log(log_id):
-    if 'user' not in session:
-        return redirect('/login')
-    logs = load_logs()
-    log = logs[log_id]
+@app.route('/edit_log/<int:entry_id>', methods=['GET', 'POST'])
+def edit_log(entry_id):
+    logbook = load_logbook()
+    entry = next((e for e in logbook if e['id'] == entry_id), None)
     if request.method == 'POST':
-        updated_text = request.form['entry']
-        logs[log_id]['entry'] = updated_text
-        save_logs(logs)
-        return redirect('/user/dashboard')
-    return render_template('edit_log.html', log=log, log_id=log_id)
+        entry['title'] = request.form['title']
+        entry['content'] = request.form['content']
+        save_logbook(logbook)
+        return redirect(url_for('user_dashboard', username=entry['username']))
+    return render_template('edit_log.html', entry=entry)
+
+@app.route('/admin')
+def admin_dashboard():
+    return render_template('admin_dashboard.html')
+
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

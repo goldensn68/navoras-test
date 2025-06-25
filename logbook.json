@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "username": "Bruger1",
+        "title": "F\u00f8rste tur",
+        "content": "Vi sejlede til \u00f8en."
+    },
+    {
+        "id": 2,
+        "username": "Bruger1",
+        "title": "Anden tur",
+        "content": "Bes\u00f8g i havnen."
+    }
+]
