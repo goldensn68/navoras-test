@@ -8,7 +8,7 @@
     {
       "username": "Bruger1",
       "password": "test123",
-      "role": "bruger"
+      "role": "user"
     }
   ]
 }

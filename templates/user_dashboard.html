@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head><title>Brugerdashboard</title></head>
-<body>
-  <h1>Velkommen, {{ username }}</h1>
-  <a href="{{ url_for('logout') }}">Log ud</a><br><br>
-  <p>Her kommer din bådprofil, logbog og vedligeholdelse i næste modul.</p>
-</body>
-</html>
+<html><head><meta charset="UTF-8"><title>Dashboard</title></head><body>
+<h1>Velkommen, {{ session['username'] }}</h1>
+<a href="{{ url_for('logout') }}">Log ud</a> | <a href="{{ url_for('profile') }}">Profil</a><br><br>
+
+<h2>Logbog</h2><ul>
+{% for log in logs %}<li>{{ log.entry }}</li>{% endfor %}
+</ul>
+
+<h2>Vedligeholdelse</h2><ul>
+{% for task in tasks %}<li>{{ task.task }} – {{ task.status }}</li>{% endfor %}
+</ul>
+
+<h2>Badges</h2><ul>
+{% for badge in badges %}<li>{{ badge }}</li>{% endfor %}
+</ul>
+
+</body></html>
