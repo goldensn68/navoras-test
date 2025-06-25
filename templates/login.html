@@ -1,1 +1,13 @@
-<form method='post'>Brugernavn: <input name='username'><br>Kode: <input name='password'><br><button type='submit'>Login</button></form>{% if fejl %}<p style='color:red;'>{{ fejl }}</p>{% endif %}
+<!DOCTYPE html>
+<html lang="da">
+<head><meta charset="UTF-8"><title>Login</title></head>
+<body>
+  <h1>Login</h1>
+  <form method="post">
+    Brugernavn: <input name="username"><br>
+    Adgangskode: <input name="password"><br>
+    <button type="submit">Log ind</button>
+  </form>
+  {% if fejl %}<p style="color:red">{{ fejl }}</p>{% endif %}
+</body>
+</html>

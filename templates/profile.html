@@ -1,1 +1,11 @@
-<h1>Profil for {{ username }}</h1><p>Points: {{ points }}</p><p>Badges: {{ badges|join(', ') }}</p><p><a href='/dashboard'>Tilbage</a></p>
+<!DOCTYPE html>
+<html lang="da">
+<head><meta charset="UTF-8"><title>Profil</title></head>
+<body>
+  <h1>Din profil</h1>
+  <p>Brugernavn: {{ session['username'] }}</p>
+  <p>Point: {{ points }}</p>
+  <p>Seneste badge: {{ latest_badge }}</p>
+  <a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a>
+</body>
+</html>
