@@ -1,6 +1,19 @@
+
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Profil</title></head><body>
-<h1>Min Profil</h1><p>Point: {{ points }}</p><ul>
-{% for badge in badges %}<li>{{ badge }}</li>{% endfor %}
-</ul><a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a>
-</body></html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil – Navoras</title>
+</head>
+<body>
+  <h1>Profil for {{ username }}</h1>
+  <p>Point: {{ points }}</p>
+  <h3>Badges:</h3>
+  <ul>
+    {% for badge in badges %}
+      <li>{{ badge }}</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a></p>
+</body>
+</html>
