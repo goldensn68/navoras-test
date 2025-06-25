@@ -1,0 +1,8 @@
+✅ Login
+✅ Dashboard
+✅ Bådredigering
+✅ Logbog
+✅ Vedligehold
+✅ Feedback
+✅ Sprog
+✅ Layout

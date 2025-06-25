@@ -1,1 +1,1 @@
-// Language switching logic
+// JS til sprogskift placeholder

@@ -1,1 +1,1 @@
-Navoras v0.0 RESET BASE - Struktur og info
+Modul 2 FINAL – komplet med login, dashboard, båd, logbog, opgaver og upload.

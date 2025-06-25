@@ -35,6 +35,22 @@ def dashboard_admin():
         return render_template("dashboard_admin.html")
     return redirect("/login")
 
+@app.route("/boat", methods=["GET", "POST"])
+def boat():
+    return render_template("boat.html")
+
+@app.route("/logbook", methods=["GET", "POST"])
+def logbook():
+    return render_template("logbook.html")
+
+@app.route("/tasks", methods=["GET", "POST"])
+def tasks():
+    return render_template("tasks.html")
+
+@app.route("/feedback", methods=["GET", "POST"])
+def feedback():
+    return render_template("feedback.html")
+
 if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
