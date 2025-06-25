@@ -8,24 +8,11 @@
     <h1>Velkommen, {{ session['user'] }}</h1>
     <a href="{{ url_for('logout') }}">Log ud</a><br><br>
 
-    <h3>Bådoplysninger</h3>
-    {% if boat %}
-        <p>Navn: {{ boat.name }} – Længde: {{ boat.length }} – Motor: {{ boat.motor }}</p>
-    {% else %}
-        <p>Ingen båd registreret.</p>
-    {% endif %}
-
     <h3>Logbog</h3>
     <ul>
         {% for log in logs %}
-            <li>{{ log.entry }}</li>
-        {% endfor %}
-    </ul>
-
-    <h3>Vedligeholdelse</h3>
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task.task }} – {{ task.status }}</li>
+            <li>{{ log.entry }} – 
+            <a href="{{ url_for('edit_log', log_id=loop.index0) }}">Rediger</a></li>
         {% endfor %}
     </ul>
 </body>
