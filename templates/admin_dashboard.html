@@ -1,13 +1,1 @@
-<!DOCTYPE html>
-<html lang="da">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard – Navoras</title>
-</head>
-<body>
-  <h1>Admin Dashboard</h1>
-  <a href="{{ url_for('logout') }}">Log ud</a><br><br>
-
-  <p>Her kan du administrere systemet. Flere funktioner tilføjes senere.</p>
-</body>
-</html>
+<h1>Admin Dashboard</h1><p><a href='/logout'>Log ud</a></p><ul>{% for username, info in users.items() %}<li>{{ username }} ({{ info.role }})</li>{% endfor %}</ul>

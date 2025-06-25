@@ -1,18 +1,1 @@
-<!DOCTYPE html>
-<html lang="da">
-<head>
-    <meta charset="UTF-8">
-    <title>Login – Navoras</title>
-</head>
-<body>
-    <h2>Login til Navoras</h2>
-    {% if fejl %}
-        <p style="color:red;">{{ fejl }}</p>
-    {% endif %}
-    <form method="post">
-        Brugernavn: <input type="text" name="username"><br>
-        Adgangskode: <input type="password" name="password"><br>
-        <input type="submit" value="Log ind">
-    </form>
-</body>
-</html>
+<form method='post'>Brugernavn: <input name='username'><br>Kode: <input name='password'><br><button type='submit'>Login</button></form>{% if fejl %}<p style='color:red;'>{{ fejl }}</p>{% endif %}

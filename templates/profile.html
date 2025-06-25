@@ -1,13 +1,1 @@
-<!DOCTYPE html>
-<html lang="da">
-<head>
-  <meta charset="UTF-8">
-  <title>Brugerprofil – Navoras</title>
-</head>
-<body>
-  <h1>Din profil</h1>
-  <p>Brugernavn: {{ username }}</p>
-  <p>Her vil du senere kunne se dine point og badges.</p>
-  <a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a>
-</body>
-</html>
+<h1>Profil for {{ username }}</h1><p>Points: {{ points }}</p><p>Badges: {{ badges|join(', ') }}</p><p><a href='/dashboard'>Tilbage</a></p>
