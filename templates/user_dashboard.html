@@ -1,1 +1,22 @@
-# Placeholder for templates/user_dashboard.html
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Brugerdashboard – Navoras</title>
+</head>
+<body>
+  <h1>Velkommen, {{ username }}</h1>
+  <a href="{{ url_for('logout') }}">Log ud</a><br><br>
+
+  <p><a href="{{ url_for('profile') }}">Se din profil og badges</a></p>
+
+  <h3>Bådoplysninger</h3>
+  <p>Ingen båd registreret endnu.</p>
+
+  <h3>Logbog</h3>
+  <p>Ingen logbogsposter endnu.</p>
+
+  <h3>Vedligeholdelse</h3>
+  <p>Ingen vedligeholdelsesopgaver endnu.</p>
+</body>
+</html>
