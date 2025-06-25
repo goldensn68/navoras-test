@@ -1,53 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <title>Din profil – Navoras</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-    .container {
-      background: white;
-      padding: 30px;
-      max-width: 600px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #003366;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      margin: 5px;
-      background: #007bff;
-      color: white;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Profil – Navoras</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Din profil</h1>
-    <p><strong>Brugernavn:</strong> {{ username }}</p>
-    <p><strong>Rolle:</strong> {{ role }}</p>
-    <p><strong>Point:</strong> {{ points }}</p>
-
-    <h2>Dine badges</h2>
-    {% if badges %}
-      {% for badge in badges %}
-        <span class="badge">{{ badge }}</span>
-      {% endfor %}
-    {% else %}
-      <p>Du har endnu ingen badges.</p>
-    {% endif %}
-
-    <br><br>
-    <a href="{{ url_for('user_dashboard') }}">← Tilbage til dashboard</a>
-  </div>
+    <h1>Profil for {{ username }}</h1>
+    <p>Her vises dine point og badges – funktion under opbygning.</p>
+    <a href="{{ url_for('user_dashboard') }}">Tilbage til dashboard</a>
 </body>
 </html>
