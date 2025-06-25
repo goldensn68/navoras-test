@@ -4,6 +4,10 @@ from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 app.secret_key = "hemmelig_nøgle"
 
+logbog = []
+opgaver = []
+boat_info = {"navn": "", "motor": ""}
+
 @app.route("/")
 def index():
     return redirect(url_for('login'))
@@ -37,18 +41,29 @@ def dashboard_admin():
 
 @app.route("/boat", methods=["GET", "POST"])
 def boat():
-    return render_template("boat.html")
+    if request.method == "POST":
+        boat_info["navn"] = request.form["navn"]
+        boat_info["motor"] = request.form["motor"]
+    return render_template("boat.html", navn=boat_info["navn"], motor=boat_info["motor"])
 
 @app.route("/logbook", methods=["GET", "POST"])
 def logbook():
-    return render_template("logbook.html")
+    if request.method == "POST":
+        entry = {"titel": request.form["titel"], "tekst": request.form["tekst"]}
+        logbog.append(entry)
+    return render_template("logbook.html", logbog=logbog)
 
 @app.route("/tasks", methods=["GET", "POST"])
 def tasks():
-    return render_template("tasks.html")
+    if request.method == "POST":
+        opgave = {"titel": request.form["titel"], "kategori": request.form["kategori"]}
+        opgaver.append(opgave)
+    return render_template("tasks.html", opgaver=opgaver)
 
 @app.route("/feedback", methods=["GET", "POST"])
 def feedback():
+    if session.get("rolle") != "bruger":
+        return redirect("/dashboard_admin")
     return render_template("feedback.html")
 
 if __name__ == "__main__":

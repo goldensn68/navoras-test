@@ -1,1 +1,13 @@
-<h2>Vedligeholdelse</h2><form method='post'><input name='titel'><input name='kategori'><button>Tilføj</button></form>
+
+<h2>Vedligeholdelse</h2>
+<form method='post'>
+  <label>Opgave:</label><br>
+  <input name='titel' placeholder='F.eks. Skift olie'><br>
+  <label>Kategori:</label><br>
+  <input name='kategori' placeholder='Motor, Dæk, Rigning...'><br><br>
+  <button>Tilføj</button>
+</form>
+{% for task in opgaver %}
+<hr>
+<p><strong>{{ task.titel }}</strong> – {{ task.kategori }}</p>
+{% endfor %}

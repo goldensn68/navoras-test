@@ -1,8 +1,4 @@
-✅ Login
-✅ Dashboard
-✅ Bådredigering
-✅ Logbog
-✅ Vedligehold
-✅ Feedback
-✅ Sprog
-✅ Layout
+✅ Labels og placeholders
+✅ Feedback kun for bruger
+✅ Data vises efter oprettelse
+✅ Pænere layout

@@ -1,1 +1,15 @@
-<h2>Min båd</h2><form method='post'><input name='navn'><input name='motor'><button>Gem</button></form>
+
+<h2>Min båd</h2>
+<form method='post'>
+  <label>Bådens navn:</label><br>
+  <input name='navn' placeholder='F.eks. Havmågen'><br>
+  <label>Motor:</label><br>
+  <input name='motor' placeholder='F.eks. Yanmar 30HK'><br><br>
+  <button>Gem</button>
+</form>
+{% if navn and motor %}
+<hr>
+<h3>Gemte oplysninger:</h3>
+<p><strong>Navn:</strong> {{ navn }}</p>
+<p><strong>Motor:</strong> {{ motor }}</p>
+{% endif %}
