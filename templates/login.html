@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="da">
 <head>
@@ -6,12 +5,14 @@
   <title>Login – Navoras</title>
 </head>
 <body>
-  <h1>Login til Navoras</h1>
-  {% if fejl %}<p style="color:red;">{{ fejl }}</p>{% endif %}
+  <h2>Login</h2>
+  {% if fejl %}
+    <p style="color:red;">{{ fejl }}</p>
+  {% endif %}
   <form method="post">
-    Brugernavn: <input name="username"><br>
-    Kodeord: <input name="password" type="password"><br>
-    <button type="submit">Log ind</button>
+    Brugernavn: <input type="text" name="username"><br>
+    Adgangskode: <input type="password" name="password"><br>
+    <input type="submit" value="Log ind">
   </form>
 </body>
 </html>
