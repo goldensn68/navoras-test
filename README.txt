@@ -1,2 +1,1 @@
-Denne ZIP indeholder testversion v0.7+ af Navoras
-Test på Render som sædvanlig.
+Navoras v0.0 RESET BASE - Struktur og info

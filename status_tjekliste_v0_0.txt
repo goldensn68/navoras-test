@@ -1,0 +1,9 @@
+TJEKLISTE v0.0 RESET BASE:
+- Login virker ✅
+- Dashboard skifter efter rolle ✅
+- Bådoprettelse og billedupload ✅
+- Logbog fungerer ✅
+- Feedback-knap synlig ✅
+- Flersprog DA/EN/DE aktiv ✅
+- Vedligehold light-version inkluderet ✅
+- Uploadfunktion klar til aktivering ✅
