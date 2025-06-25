@@ -1,30 +1,18 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard – Navoras</title>
 </head>
 <body>
-  <h1>Admin Dashboard</h1>
-  <a href="{{ url_for('logout') }}">Log ud</a><br><br>
+    <h1>Adminpanel</h1>
+    <a href="{{ url_for('logout') }}">Log ud</a><br><br>
 
-  <h3>Opret ny bruger</h3>
-  <form method="post" action="{{ url_for('register_user') }}">
-    Brugernavn: <input name="username"><br>
-    Adgangskode: <input name="password"><br>
-    Rolle: 
-    <select name="role">
-      <option value="user">User</option>
-      <option value="admin">Admin</option>
-    </select><br>
-    <button type="submit">Opret</button>
-  </form>
-
-  <h3>Eksisterende brugere:</h3>
-  <ul>
-    {% for username, info in users.items() %}
-      <li>{{ username }} ({{ info.role }})</li>
-    {% endfor %}
-  </ul>
+    <h3>Eksisterende brugere</h3>
+    <ul>
+        {% for bruger, info in users.items() %}
+            <li>{{ bruger }} – Rolle: {{ info.rolle }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

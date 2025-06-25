@@ -1,1 +1,6 @@
-{}
+{
+  "Bruger1": [
+    {"task": "Olieskift", "status": "Afventer"},
+    {"task": "Rensning af skrog", "status": "Udført"}
+  ]
+}

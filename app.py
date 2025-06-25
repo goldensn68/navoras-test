@@ -1,69 +1,68 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import json
+import json, os
 
 app = Flask(__name__)
-app.secret_key = "hemmelig_nøgle"
+app.secret_key = 'hemmelig_nøgle'
+
+PORT = int(os.environ.get("PORT", 5000))
 
 def load_users():
-    with open("users.json", "r", encoding="utf-8") as f:
-        return json.load(f)["users"]
+    with open("users.json") as f:
+        return json.load(f)
 
-def save_users(users):
-    with open("users.json", "w", encoding="utf-8") as f:
-        json.dump({"users": users}, f, ensure_ascii=False, indent=2)
+def load_boats():
+    with open("boats.json") as f:
+        return json.load(f)
 
-@app.route("/")
-def index():
-    return redirect(url_for("login"))
+def load_logs():
+    with open("logs.json") as f:
+        return json.load(f)
 
-@app.route("/login", methods=["GET", "POST"])
+def load_tasks():
+    with open("tasks.json") as f:
+        return json.load(f)
+
+@app.route('/', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        brugernavn = request.form["username"]
-        kodeord = request.form["password"]
-        brugere = load_users()
-        for bruger in brugere:
-            if bruger["username"] == brugernavn and bruger["password"] == kodeord:
-                session["username"] = brugernavn
-                session["role"] = bruger.get("role", "user")
-                if session["role"] == "admin":
-                    return redirect(url_for("admin_dashboard"))
-                else:
-                    return redirect(url_for("user_dashboard"))
-        return render_template("login.html", fejl="Forkert brugernavn eller adgangskode.")
-    return render_template("login.html")
+    if request.method == 'POST':
+        brugernavn = request.form['brugernavn']
+        adgangskode = request.form['adgangskode']
+        users = load_users()
+        if brugernavn in users and users[brugernavn]['adgangskode'] == adgangskode:
+            session['user'] = brugernavn
+            session['rolle'] = users[brugernavn]['rolle']
+            if users[brugernavn]['rolle'] == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('user_dashboard'))
+        else:
+            return "Forkert brugernavn eller adgangskode"
+    return render_template('login.html')
 
-@app.route("/logout")
+@app.route('/user_dashboard')
+def user_dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    user = session['user']
+    boats = load_boats()
+    logs = load_logs()
+    tasks = load_tasks()
+    boat = boats.get(user)
+    user_logs = logs.get(user, [])
+    user_tasks = tasks.get(user, [])
+    return render_template('user_dashboard.html', boat=boat, logs=user_logs, tasks=user_tasks)
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    if 'user' not in session or session.get('rolle') != 'admin':
+        return redirect(url_for('login'))
+    users = load_users()
+    return render_template('admin_dashboard.html', users=users)
+
+@app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for("login"))
-
-@app.route("/admin", methods=["GET", "POST"])
-def admin_dashboard():
-    if session.get("role") != "admin":
-        return redirect(url_for("login"))
-    users = {user['username']: user for user in load_users()}
-    return render_template("admin_dashboard.html", users=users)
-
-@app.route("/register_user", methods=["POST"])
-def register_user():
-    if session.get("role") != "admin":
-        return redirect(url_for("login"))
-    users = load_users()
-    new_user = {
-        "username": request.form["username"],
-        "password": request.form["password"],
-        "role": request.form["role"]
-    }
-    users.append(new_user)
-    save_users(users)
-    return redirect(url_for("admin_dashboard"))
-
-@app.route("/dashboard")
-def user_dashboard():
-    if "username" not in session or session.get("role") != "user":
-        return redirect(url_for("login"))
-    return render_template("user_dashboard.html", username=session["username"], points=120, badges=["Aktiv Bruger", "Vedligeholdelsesmester"])
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=PORT)
