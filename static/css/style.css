@@ -1,6 +1,6 @@
 
-body { font-family: sans-serif; background: #f4f9ff; padding: 2rem; }
-form { background: white; padding: 1rem; border-radius: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 500px; }
-input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc; }
+body { font-family: Arial, sans-serif; background: #f0f7ff; padding: 2rem; }
+form { background: #fff; padding: 1rem; border-radius: 1rem; box-shadow: 0 0 10px #ccc; max-width: 600px; }
+input, textarea { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 0.5rem; }
 button { padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 0.5rem; }
-nav a { margin-right: 10px; text-decoration: none; }
+nav a { margin-right: 10px; font-weight: bold; color: #007bff; text-decoration: none; }

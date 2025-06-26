@@ -1,15 +1,21 @@
 
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
 <h2>Feedback</h2>
-<nav style='margin-bottom: 1rem;'>
-  <a href='/oversigt'>🏠 Oversigt</a> |
-  <a href='/boat'>🚤 Min båd</a> |
-  <a href='/logbook'>📘 Logbog</a> |
-  <a href='/tasks'>🔧 Vedligehold</a> |
-  <a href='/feedback'>💬 Feedback</a> |
-  <a href='/login'>🚪 Log ud</a>
+<nav>
+  <a href='/oversigt'>🏠 Oversigt</a>
+  <a href='/boat'>🚤 Min båd</a>
+  <a href='/logbook'>📘 Logbog</a>
+  <a href='/tasks'>🔧 Vedligehold</a>
+  <a href='/feedback'>💬 Feedback</a>
+  <a href='/logout'>🚪 Log ud</a>
 </nav>
 <form method='post'>
-  <label>Dine forslag:</label><br>
-  <textarea name='forslag' placeholder='Fortæl os, hvad vi kan forbedre...'></textarea><br><br>
+  <label>Forslag:</label><br>
+  <textarea name='forslag'></textarea><br><br>
   <button>Send</button>
 </form>
+</body>
+</html>
