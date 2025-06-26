@@ -1,5 +1,5 @@
 
-<h2>Vedligeholdelse</h2>
+<h2>Min oversigt</h2>
 <nav style='margin-bottom: 1rem;'>
   <a href='/oversigt'>🏠 Oversigt</a> |
   <a href='/boat'>🚤 Min båd</a> |
@@ -8,14 +8,16 @@
   <a href='/feedback'>💬 Feedback</a> |
   <a href='/login'>🚪 Log ud</a>
 </nav>
-<form method='post'>
-  <label>Opgave:</label><br>
-  <input name='titel' placeholder='F.eks. Skift olie'><br>
-  <label>Kategori:</label><br>
-  <input name='kategori' placeholder='Motor, Sejl, Dæk...'><br><br>
-  <button>Tilføj</button>
-</form>
+<h3>🚤 Bådinformation</h3>
+<p><strong>Navn:</strong> {{ boat.navn }}</p>
+<p><strong>Motor:</strong> {{ boat.motor }}</p>
+
+<h3>📘 Logbog</h3>
+{% for entry in logbog %}
+<p><strong>{{ entry.titel }}</strong><br>{{ entry.tekst[:100] }}...</p>
+{% endfor %}
+
+<h3>🔧 Vedligeholdelse</h3>
 {% for task in opgaver %}
-<hr>
 <p><strong>{{ task.titel }}</strong> – {{ task.kategori }}</p>
 {% endfor %}
