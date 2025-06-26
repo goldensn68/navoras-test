@@ -1,72 +1,97 @@
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, session
+import os
 
 app = Flask(__name__)
 app.secret_key = "hemmelig_nøgle"
 
-logbog = []
-opgaver = []
-boat_info = {"navn": "", "motor": ""}
-
 @app.route("/")
-def index():
-    return redirect(url_for('login'))
+def home():
+    return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        brugernavn = request.form["username"]
-        adgangskode = request.form["password"]
-        if brugernavn == "Admin" and adgangskode == "admin123":
-            session["rolle"] = "admin"
-            return redirect("/dashboard_admin")
-        elif brugernavn == "Bruger1" and adgangskode == "test123":
+        brugernavn = request.form["brugernavn"]
+        adgangskode = request.form["adgangskode"]
+        if brugernavn == "Bruger1" and adgangskode == "test123":
+            session["user"] = brugernavn
             session["rolle"] = "bruger"
-            return redirect("/dashboard")
+            return redirect("/bruger_dashboard")
+        elif brugernavn == "Admin" and adgangskode == "admin123":
+            session["user"] = brugernavn
+            session["rolle"] = "admin"
+            return redirect("/admin_dashboard")
         else:
-            return "Forkert login"
+            return "Forkert brugernavn eller adgangskode"
     return render_template("login.html")
 
-@app.route("/dashboard")
-def dashboard():
-    if session.get("rolle") == "bruger":
-        return render_template("dashboard_user.html")
+@app.route("/admin_dashboard")
+def admin_dashboard():
+    if "user" not in session or session.get("rolle") != "admin":
+        return redirect("/login")
+    return render_template("admin_dashboard.html", bruger=session["user"])
+
+@app.route("/bruger_dashboard")
+def bruger_dashboard():
+    if "user" not in session or session.get("rolle") != "bruger":
+        return redirect("/login")
+    return render_template("bruger_dashboard.html", bruger=session["user"])
+
+@app.route("/rediger_baad", methods=["GET", "POST"])
+def rediger_baad():
+    if "user" not in session:
+        return redirect("/login")
+    if request.method == "POST":
+        session["boat"] = {
+            "navn": request.form["baadnavn"],
+            "motor": request.form["motorinfo"]
+        }
+        return redirect("/bruger_dashboard")
+    return render_template("rediger_baad.html")
+
+@app.route("/logbog", methods=["GET", "POST"])
+def logbog():
+    if "user" not in session:
+        return redirect("/login")
+    if "logbog" not in session:
+        session["logbog"] = []
+    if request.method == "POST":
+        indlaeg = {
+            "titel": request.form["titel"],
+            "beskrivelse": request.form["beskrivelse"]
+        }
+        session["logbog"].append(indlaeg)
+    return render_template("logbog.html", logbog=session.get("logbog", []))
+
+@app.route("/vedligehold", methods=["GET", "POST"])
+def vedligehold():
+    if "user" not in session:
+        return redirect("/login")
+    if "opgaver" not in session:
+        session["opgaver"] = []
+    if request.method == "POST":
+        opgave = {
+            "titel": request.form["titel"],
+            "kategori": request.form["kategori"]
+        }
+        session["opgaver"].append(opgave)
+    return render_template("vedligehold.html", opgaver=session.get("opgaver", []))
+
+@app.route("/oversigt")
+def oversigt():
+    if "user" not in session:
+        return redirect("/login")
+    boat = session.get("boat", {"navn": "Ikke angivet", "motor": "Ikke angivet"})
+    logbog = session.get("logbog", [])
+    opgaver = session.get("opgaver", [])
+    return render_template("oversigt.html", boat=boat, logbog=logbog, opgaver=opgaver)
+
+@app.route("/logout")
+def logout():
+    session.clear()
     return redirect("/login")
-
-@app.route("/dashboard_admin")
-def dashboard_admin():
-    if session.get("rolle") == "admin":
-        return render_template("dashboard_admin.html")
-    return redirect("/login")
-
-@app.route("/boat", methods=["GET", "POST"])
-def boat():
-    if request.method == "POST":
-        boat_info["navn"] = request.form["navn"]
-        boat_info["motor"] = request.form["motor"]
-    return render_template("boat.html", navn=boat_info["navn"], motor=boat_info["motor"])
-
-@app.route("/logbook", methods=["GET", "POST"])
-def logbook():
-    if request.method == "POST":
-        entry = {"titel": request.form["titel"], "tekst": request.form["tekst"]}
-        logbog.append(entry)
-    return render_template("logbook.html", logbog=logbog)
-
-@app.route("/tasks", methods=["GET", "POST"])
-def tasks():
-    if request.method == "POST":
-        opgave = {"titel": request.form["titel"], "kategori": request.form["kategori"]}
-        opgaver.append(opgave)
-    return render_template("tasks.html", opgaver=opgaver)
-
-@app.route("/feedback", methods=["GET", "POST"])
-def feedback():
-    if session.get("rolle") != "bruger":
-        return redirect("/dashboard_admin")
-    return render_template("feedback.html")
 
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
