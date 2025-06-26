@@ -1,15 +1,19 @@
 
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="/static/css/style.css"></head>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Log ind</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
 <body>
-<h2>Log ind</h2>
-<form method='post'>
-  <label>Brugernavn:</label><br>
-  <input name='username' placeholder='F.eks. Bruger1'><br>
-  <label>Adgangskode:</label><br>
-  <input name='password' type='password' placeholder='Din adgangskode'><br><br>
-  <button>Login</button>
-</form>
+    <h2>Log ind</h2>
+    <form method="POST" action="/login">
+        <label>Brugernavn:</label><br>
+        <input type="text" name="brugernavn" placeholder="F.eks. Bruger1" required><br>
+        <label>Adgangskode:</label><br>
+        <input type="password" name="adgangskode" placeholder="Din adgangskode" required><br>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>

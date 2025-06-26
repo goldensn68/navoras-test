@@ -1,6 +1,26 @@
 
-body { font-family: Arial, sans-serif; background: #f0f7ff; padding: 2rem; }
-form { background: #fff; padding: 1rem; border-radius: 1rem; box-shadow: 0 0 10px #ccc; max-width: 600px; }
-input, textarea { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 0.5rem; }
-button { padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 0.5rem; }
-nav a { margin-right: 10px; font-weight: bold; color: #007bff; text-decoration: none; }
+body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    background-color: #f2f9ff;
+    color: #003049;
+}
+input, button, textarea {
+    margin: 0.5rem 0;
+    padding: 0.4rem;
+    width: 100%;
+    max-width: 300px;
+}
+button {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #005f87;
+}
+a {
+    display: inline-block;
+    margin-bottom: 1rem;
+}

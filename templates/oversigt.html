@@ -1,30 +1,38 @@
 
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="/static/css/style.css"></head>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Oversigt</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
 <body>
-<h2>Min oversigt</h2>
-<nav>
-  <a href='/oversigt'>🏠 Oversigt</a>
-  <a href='/boat'>🚤 Min båd</a>
-  <a href='/logbook'>📘 Logbog</a>
-  <a href='/tasks'>🔧 Vedligehold</a>
-  <a href='/feedback'>💬 Feedback</a>
-  <a href='/logout'>🚪 Log ud</a>
-</nav>
+    <h2>Din Bådsoversigt</h2>
+    <a href="/bruger_dashboard">⬅ Tilbage til Dashboard</a>
+    <h3>Bådinformation</h3>
+    <p><strong>Navn:</strong> {{ boat.navn }}</p>
+    <p><strong>Motor:</strong> {{ boat.motor }}</p>
 
-<h3>🚤 Bådinformation</h3>
-<p><strong>Navn:</strong> {{ boat.navn }}</p>
-<p><strong>Motor:</strong> {{ boat.motor }}</p>
+    <h3>Logbog</h3>
+    {% if logbog %}
+        <ul>
+        {% for entry in logbog %}
+            <li>{{ entry }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Ingen logbogsindlæg endnu.</p>
+    {% endif %}
 
-<h3>📘 Logbog</h3>
-{% for entry in logbog %}
-<p><strong>{{ entry.titel }}</strong><br>{{ entry.tekst[:100] }}...</p>
-{% endfor %}
-
-<h3>🔧 Vedligeholdelse</h3>
-{% for task in opgaver %}
-<p><strong>{{ task.titel }}</strong> – {{ task.kategori }}</p>
-{% endfor %}
+    <h3>Vedligeholdelse</h3>
+    {% if opgaver %}
+        <ul>
+        {% for opgave in opgaver %}
+            <li>{{ opgave }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Ingen opgaver endnu.</p>
+    {% endif %}
 </body>
 </html>
